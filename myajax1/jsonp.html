@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jsonp</title>
+	</head>
+	<body>
+		<input type="text" />
+		<button>提交</button>
+	</body>
+	<script type="text/javascript">
+		var btn=document.getElementsByTagName("button")[0];
+		btn.onclick=function(){
+			var scrt=document.createElement("script");
+			scrt.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=ddd&json=1&p=3&sid=1431_21095_17001_19897_22157&req=2&bs=aaa&csor=3&pwd=dd&cb=f";
+			document.body.appendChild(scrt);
+			document.body.removeChild(scrt);
+		}
+		function f(obj){
+			console.log(obj);
+		}
+		//使用ajax跨域请求时由于同源策略的限制，不能跨域请求数据
+		/*btn.onclick=function(){
+			var xhr=new XMLHttpRequest();
+			xhr.open("GET","https://sp0.baidu.com/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=aaa&fm=se&T=1495544217&y=FB5DFDAF&rsv_cache=0&rsv_tpfail=1&rsv_pstg=21&rsv_prw=aaa&rsv_svoice=0&rsv_pre=1&rsv_reh=228_169_109_85_153_129_109_109_85_85|557_186&rsv_scr=1903_2398_0_0_1080_1920&rsv_skin=843&rsv_psid=FA85B0D5DD24D61C023F8E0ABB977DE9&rsv_pstm=1489493825&rsv_idc=1&rsv_sid=1431_21095_17001_19897_22157&cid=0&qid=cdcefa0d00013699&t=1495544227954&rsv_pstg=21&rsv_cftime=1&rsv_iorr=0&rsv_tn=baiduhome_pg&rsv_isid=1431_21095_17001_19897_22157&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2Fs%3Fwd%3Daaa%26rsv_spt%3D1%26rsv_iqid%3D0xdba65dde00013f9d%26issp%3D1%26f%3D8%26rsv_bp%3D0%26rsv_idx%3D2%26ie%3Dutf-8%26tn%3Dbaiduhome_pg%26rsv_enter%3D1%26rsv_sug3%3D3%26rsv_sug1%3D2%26rsv_sug7%3D100&rsv_did=82ded5c2e5475753d372a219b101c661",true);
+			xhr.send(null);
+			if(xhr.readyState==4&&xhr.status==200){
+				console.log(xhr.responseText);
+			}
+		}*/
+	</script>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>图灵机器人</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#outer{
+				width: 400px;
+				height: 500px;
+				margin: 50px auto;
+				background: #008fd1;
+			}
+			#inp{
+				width: 350px;
+				height: 40px;
+				outline: none;
+				box-sizing: border-box;
+				font-size: 18px;
+			}
+			#btn{
+				width: 50px;
+				height: 40px;
+				outline: none;
+				text-align: center;
+				font-size: 18px;
+			}
+			#wordsBox{
+				height: 460px;
+				overflow-y:auto;
+			}
+			.myWords{
+				text-align: right;
+			}
+			#wordsBox div{
+				line-height: 30px;
+				margin-bottom: 5px;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="outer">
+			<input type="text" name="inp" id="inp" placeholder="请输入你想问的话"  /><button id="btn">提交</button>
+			<div id="wordsBox"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var inp=document.getElementById('inp');
+		var btn=document.getElementById('btn');
+		var wordsBox=document.getElementById('wordsBox');
+		//点击按钮发送请求
+		btn.onclick=function(){
+			createWords();
+		}
+		document.onkeydown=function(e){
+			var e=e||window.event;
+			if(e.keyCode==13){
+				createWords();
+			}
+		}
+		function createWords(){
+			
+			var mywords=document.createElement("div");
+			mywords.innerHTML=inp.value;
+			mywords.setAttribute("class","myWords");
+			wordsBox.appendChild(mywords);
+			
+			
+			
+			if(window.XMLHttpRequest){
+				var xhr=new XMLHttpRequest();
+			}
+			else{
+				var xhr=new ActiveXObject("microsoft.XMLHTTP")
+			}
+			var url="http://www.tuling123.com/openapi/api?key=faaead16490449948a38189eee1d62bd&info="+inp.value+"&userid=123456";
+			xhr.open("post",url,true);
+			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhr.send("key=faaead16490449948a38189eee1d62bd&info="+inp.value+"&userid=123456");
+			inp.value="";
+			//等待响应
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4 && xhr.status==200){
+					//接受回复
+					var str=xhr.responseText;
+					//创建机器人的对话框
+					var robotWords=document.createElement("div");
+					robotWords.innerHTML=JSON.parse(str).text;
+					wordsBox.appendChild(robotWords);
+					wordsBox.scrollTop=robotWords.offsetTop+robotWords.offsetHeight;
+				}
+			}
+		}
+	</script>
+</html>
